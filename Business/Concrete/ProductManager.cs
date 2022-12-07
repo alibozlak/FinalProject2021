@@ -25,5 +25,27 @@ namespace Business.Concrete
             //
             return this.productDal.GetAll(); 
         }
+
+        public List<Product> GetAllByCategoryId(int categoryId)
+        {
+            //
+            // 
+            return this.productDal.GetAll(p=>p.CategoryId == categoryId);
+        }
+
+        public List<Product> GetByUnitPrice(double min, double max)
+        {
+            return this.productDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max);
+        }
+
+        public List<Product> GetByUnitPriceMax(double max)
+        {
+            return this.productDal.GetAll(p => p.UnitPrice <= max);
+        }
+
+        public List<Product> GetByUnitPriceMin(double min)
+        {
+            return this.productDal.GetAll(p => p.UnitPrice >= min);
+        }
     }
 }

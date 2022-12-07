@@ -10,5 +10,9 @@ namespace Business.Abstract
     public interface IProductService
     {
         List<Product> GetAll();
+        List<Product> GetAllByCategoryId(int categoryId);
+        List<Product> GetByUnitPrice(double min, double max);
+        List<Product> GetByUnitPriceMin(double min);
+        List<Product> GetByUnitPriceMax(double max);
     }
 }
