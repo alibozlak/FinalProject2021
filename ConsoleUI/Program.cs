@@ -24,11 +24,26 @@ namespace ConsoleUI
             //    Console.WriteLine($"Kategori Adı : {category.CategoryName}, Kategori ID : {category.CategoryId}");
             //}
 
+            //IProductService productService = new ProductManager(new EfProductDal());
+            //List<ProductDetailDto> productDetailDtos = productService.GetProductDetails();
+            //foreach (var productDetailDto in productDetailDtos)
+            //{
+            //    Console.WriteLine($"{productDetailDto.ProductName} -> {productDetailDto.CategoryName}");
+            //}
+
             IProductService productService = new ProductManager(new EfProductDal());
-            List<ProductDetailDto> productDetailDtos = productService.GetProductDetails();
-            foreach (var productDetailDto in productDetailDtos)
+            var result = productService.GetAll();
+            if (result.IsSuccess)
             {
-                Console.WriteLine($"{productDetailDto.ProductName} -> {productDetailDto.CategoryName}");
+                foreach (var product in result.Data)
+                {
+                    Console.WriteLine($"{product.ProductId} - {product.ProductName} - " +
+                        $"{product.UnitPrice} - {product.UnitsInStock}");
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
         }
     }

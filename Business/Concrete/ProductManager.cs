@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -19,39 +21,55 @@ namespace Business.Concrete
             this.productDal = productDal;
         }
 
-        public List<Product> GetAll()
+        public IResult Add(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDataResult<List<Product>> GetAll()
         {
             // Business codes here ..
             //
             //
-            return this.productDal.GetAll(); 
+            var data = this.productDal.GetAll();
+            return new SuccessDataResult<List<Product>>(Messages.ProductListed, data); 
         }
 
-        public List<Product> GetAllByCategoryId(int categoryId)
+        public IDataResult<List<Product>> GetAllByCategoryId(int categoryId)
         {
             //
             // 
-            return this.productDal.GetAll(p=>p.CategoryId == categoryId);
+            var data = this.productDal.GetAll(p => p.CategoryId == categoryId);
+            return new SuccessDataResult<List<Product>>(Messages.ProductListed, data);
         }
 
-        public List<Product> GetByUnitPrice(double min, double max)
+        public IDataResult<Product> GetById(int productId)
         {
-            return this.productDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max);
+            throw new NotImplementedException();
         }
 
-        public List<Product> GetByUnitPriceMax(double max)
+        public IDataResult<List<Product>> GetByUnitPrice(double min, double max)
         {
-            return this.productDal.GetAll(p => p.UnitPrice <= max);
+            var data = this.productDal.GetAll(p => p.UnitPrice >= min && p.UnitPrice <= max);
+            return new SuccessDataResult<List<Product>>(Messages.ProductListed, data);
         }
 
-        public List<Product> GetByUnitPriceMin(double min)
+        public IDataResult<List<Product>> GetByUnitPriceMax(double max)
         {
-            return this.productDal.GetAll(p => p.UnitPrice >= min);
+            var data = this.productDal.GetAll(p => p.UnitPrice <= max);
+            return new SuccessDataResult<List<Product>>(Messages.ProductListed, data);
         }
 
-        public List<ProductDetailDto> GetProductDetails()
+        public IDataResult<List<Product>> GetByUnitPriceMin(double min)
         {
-            return this.productDal.GetProductDetails();
+            var data = this.productDal.GetAll(p => p.UnitPrice >= min);
+            return new SuccessDataResult<List<Product>>(Messages.ProductListed, data);
+        }
+
+        public IDataResult<List<ProductDetailDto>> GetProductDetails()
+        {
+            var data = this.productDal.GetProductDetails();
+            return new SuccessDataResult<List<ProductDetailDto>>("Ürün detayları listelendi", data);
         }
     }
 }
