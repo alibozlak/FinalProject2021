@@ -23,7 +23,9 @@ namespace Business.Concrete
 
         public IResult Add(Product product)
         {
-            throw new NotImplementedException();
+            this.productDal.Add(product);
+            var message = $"{product.ProductName} adlı ürün eklendi";
+            return new SuccessResult(message);
         }
 
         public IDataResult<List<Product>> GetAll()
@@ -45,7 +47,9 @@ namespace Business.Concrete
 
         public IDataResult<Product> GetById(int productId)
         {
-            throw new NotImplementedException();
+            var data = this.productDal.Get(p => p.ProductId == productId);
+            var message = $"ID'si {productId} olan ürün getirildi";
+            return new SuccessDataResult<Product>(message,data);
         }
 
         public IDataResult<List<Product>> GetByUnitPrice(double min, double max)
